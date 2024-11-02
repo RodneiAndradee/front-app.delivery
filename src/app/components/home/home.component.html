@@ -1,0 +1,23 @@
+<div class="menu-container">
+  <h1>Pedidos</h1>
+
+  <div class="menu-grid">
+    <div class="menu-item" *ngFor="let item of menuItems">
+      <div class="item-card" (click)="addToCart(item)">
+        <img [src]="item.image" [alt]="item.name" class="item-image">
+        <div class="item-info">
+          <h3>{{ item.name }}</h3>
+          <p class="price">R$ {{ item.price.toFixed(2) }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cart-button">
+    <button class="order-button" (click)="fazerPedido()">
+      Realizar Pedido
+      <span class="cart-count" *ngIf="cartCount > 0">{{ cartCount }}</span>
+    </button>
+  </div>
+</div>
+  

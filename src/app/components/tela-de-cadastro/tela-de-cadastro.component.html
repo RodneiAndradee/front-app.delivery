@@ -1,0 +1,32 @@
+  <div class="container">
+    <h1>TELA DE CADASTRO</h1>
+  
+    <!-- Formulário de Cadastro -->
+    <div class="form-section">
+      <form (ngSubmit)="saveUser()">
+        <input 
+          id = "name"
+          name = "name"
+          type="text" 
+          placeholder="Nome"
+          class="input-field"
+          [(ngModel)]="user.name"
+        >
+  
+        <input 
+          id = "endereco"
+          name = "endereco"
+          type="text" 
+          placeholder="Endereço"
+          class="input-field"
+          [(ngModel)]="user.endereco"
+        >
+  
+        <button type="submit" class="submit-button">
+          Cadastrar
+        </button>
+      </form>
+    </div>
+  
+
+  </div>
