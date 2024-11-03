@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="header">
+    <h1 class="title">Pedidos</h1>
+  </div>
+
+  <div class="orders-list">
+    <div class="order-card" *ngFor="let pedido of pedidos">
+      <div class="order-info">
+        <div class="order-id">{{pedido.id}}</div>
+        <div class="order-customer">Cliente: {{pedido.customer}}</div>
+        <button class="order-details">{{pedido.details}}</button>
+      </div>
+
+      <div class="order-actions">
+        <button class="action-button approve">
+          <svg viewBox="0 0 24 24">
+            <path d="M5 13l4 4L19 7"></path>
+          </svg>
+        </button>
+
+        <button class="action-button reject">
+          <svg viewBox="0 0 24 24">
+            <path d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

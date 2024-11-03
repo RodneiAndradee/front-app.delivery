@@ -3,7 +3,11 @@
 
   <div class="menu-grid">
     <div class="menu-item" *ngFor="let item of menuItems">
-      <div class="item-card" (click)="addToCart(item)">
+      <div
+        class="item-card"
+        [class.added]="isInCart(item)"
+        (click)="toggleCart(item)"
+      >
         <img [src]="item.image" [alt]="item.name" class="item-image">
         <div class="item-info">
           <h3>{{ item.name }}</h3>
@@ -14,10 +18,24 @@
   </div>
 
   <div class="cart-button">
-    <button class="order-button" (click)="fazerPedido()">
+    <button
+      class="order-button"
+      (click)="fazerPedido()"
+      [disabled]="cartCount === 0"
+    >
       Realizar Pedido
       <span class="cart-count" *ngIf="cartCount > 0">{{ cartCount }}</span>
     </button>
   </div>
 </div>
-  
+
+<!-- Modal de Sucesso -->
+<div class="modal" [class.show]="showSuccessModal">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <img src="/success-icon.png" alt="Sucesso" class="success-icon">
+    <h2 class="modal-title">Ótimo</h2>
+    <p class="modal-text">Seu pedido foi realizado com sucesso!</p>
+    <button class="order-button" (click)="closeModal()">Fazer Outro Pedido</button>
+  </div>
+</div>

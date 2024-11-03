@@ -25,7 +25,8 @@ export class CadastroComponent {
 
   saveUser() {
     this.userService.createUser(this.user).subscribe(data => {
-      this.router.navigate(['/home']);
+      const userId = data.id;
+      this.router.navigate(['/home', userId]);
     })
   }
 }
