@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route } from '@angular/router';
+import { Router } from '@angular/router';
+
 
 interface MenuItem {
   id: number;
@@ -34,7 +36,10 @@ export class HomeComponent implements OnInit{
   showSuccessModal: boolean = false;
   itensPedido: ItemPedido[]=[];
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private routi: Router
+  ) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -62,6 +67,7 @@ export class HomeComponent implements OnInit{
     this.showSuccessModal = false;
     this.itensPedido = [];
     this.cartCount = 0;
+    this.routi.navigate(['/status']);
   }
 
   fazerPedido(){

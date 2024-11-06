@@ -1,7 +1,11 @@
 <div class="container">
   <div class="header">
-    <h1 class="title">Cozinha</h1>
+    <h1 class="title">Status Pedido</h1>
+    <form (ngSubmit)="irCozinha()">
+      <button class="kitchen-btn">Cozinha</button>
+    </form>
   </div>
+  
 
   <div class="orders-list">
     <div class="order-card" *ngFor="let order of orders">
@@ -17,7 +21,7 @@
         <div class="order-status" [ngClass]="{
           'status-preparando': order.status === 'Preparando',
           'status-caminho': order.status === 'A Caminho',
-          'status-espera': order.status === 'Fila de Espera'
+          'status-entregue': order.status === 'Entregue'
         }">
           <span class="label">Status do pedido:</span>
           <span class="value">{{order.status}}</span>

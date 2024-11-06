@@ -87,10 +87,25 @@
   border: 1px solid #bfdbfe;
 }
 
-.status-espera .value {
-  color: #ef4444;
-  background-color: #fef2f2;
+.status-entregue .value {
+  color: #34f105;
+  background-color: #e6fade;
   padding: 6px 12px;
   border-radius: 20px;
-  border: 1px solid #fecaca;
+  border: 1px solid #a0f180;
+}
+
+
+.kitchen-btn {
+  background-color:#003366;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.kitchen-btn:hover {
+  background-color: #003366;
 }

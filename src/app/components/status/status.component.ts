@@ -1,14 +1,20 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-cozinha',
-  templateUrl: './cozinha.component.html',
-  styleUrls: ['./cozinha.component.css'],
+  selector: 'app-status',
+  templateUrl: './status.component.html',
+  styleUrls: ['./status.component.css'],
   standalone: true,
   imports: [CommonModule]
 })
-export class CozinhaComponent {
+export class StatusComponent {
+  constructor(
+    private router: Router
+  ) {}
+ 
+ 
   orders = [
     {
       id: '#24227',
@@ -23,7 +29,11 @@ export class CozinhaComponent {
     {
       id: '#24229',
       customer: 'C07',
-      status: 'Fila de Espera'
+      status: 'Entregue'
     }
   ];
+
+  irCozinha(){
+    this.router.navigate(['/pedidos']);
+  }
 }
