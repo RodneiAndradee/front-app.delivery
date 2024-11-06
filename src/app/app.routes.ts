@@ -12,7 +12,7 @@ export const routes: Routes = [
   { path: 'add-dish', component: DishFormComponent },
   { path: 'edit-dish/:id', component: DishFormComponent },
   { path: 'cadastro', component: CadastroComponent },
-  { path: 'home/:id', component: HomeComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'pedidos', component: PedidosComponent },
   { path: 'cozinha', component: CozinhaComponent },
 ];
