@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 export class CadastroComponent {
   user: User = {
     name: '',
-    endereco: '',
+    address: '',
   };
 
   constructor(

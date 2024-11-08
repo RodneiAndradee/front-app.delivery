@@ -2,16 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Route } from '@angular/router';
 import { Router } from '@angular/router';
-
-
-interface MenuItem {
-  id: number;
-  name: string;
-  price: number;
-  image: string;
-}
-
-type ItemPedido = Omit<MenuItem, "image">
+import { Dish, DishService } from '../../services/dish.service';
+import { Order, OrderService } from '../../services/order.service';
 
 @Component({
   selector: 'app-home',
@@ -21,57 +13,72 @@ type ItemPedido = Omit<MenuItem, "image">
   imports: [CommonModule]
 })
 
-
 export class HomeComponent implements OnInit{
-  menuItems: MenuItem[] = [
-    { id: 1, name: 'Hambúrguer Clássico', price: 35.00, image: '/burger.jpg' },
-    { id: 2, name: 'Frango', price: 32.00, image: '/chicken.jpg' },
-    { id: 3, name: 'Torta de Maçã', price: 18.00, image: '/apple-pie.jpg' },
-    { id: 4, name: 'Canapés de Salmão', price: 20.00, image: '/salmon.jpg' },
-    { id: 5, name: 'Salada de Quinoa', price: 16.00, image: '/quinoa.jpg' }
-  ];
-
   userId: string = '';
   cartCount: number = 0;
   showSuccessModal: boolean = false;
-  itensPedido: ItemPedido[]=[];
+  order: Order | null = null;
+  menuItems: Dish[] = [];
 
   constructor(
     private route: ActivatedRoute,
-    private routi: Router
+    private router: Router,
+    private dishService: DishService,
+    private orderService: OrderService
   ) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.userId = params.get('id')!;
+
+      this.order = {
+        user: { id: parseInt(this.userId) },
+        dishes: [],
+        status: 'pending',
+        totalAmount: 0
+      }
+    });
+
+    this.loadDishes();
+  }
+
+  loadDishes() {
+    this.dishService.getDishes().subscribe((data: Dish[]) => {
+      this.menuItems = data;
     });
   }
 
-  toggleCart(item: MenuItem) {
-    const index = this.itensPedido.findIndex(pedidoItem => pedidoItem.id === item.id)
+  toggleCart(item: Dish) {
+    if (!item.id || !this.order) return
 
-    if (index !== -1) {
-      this.itensPedido.splice(index, 1)
+    const dishIndex = this.order.dishes.findIndex(dish => dish.id === item.id)
+    if (dishIndex !== -1)  {
+      this.order?.dishes.splice(dishIndex, 1)
+      this.order.totalAmount = Math.max(0, this.order.totalAmount - item.price)
       this.cartCount--
-    } else {
-      this.itensPedido.push(item)
-      this.cartCount++
+      return
     }
+
+    this.order.dishes.push({ id: item.id })
+    this.order.totalAmount += item.price
+    this.cartCount++
   }
 
-  isInCart(item: MenuItem): boolean {
-    return this.itensPedido.some(pedidoItem => pedidoItem.id === item.id)
+  isInCart(item: Dish): boolean {
+    if (!this.order) return false
+    return this.order.dishes.some(dish => dish.id === item.id)
   }
 
   closeModal() {
     this.showSuccessModal = false;
-    this.itensPedido = [];
+    this.order = null;
     this.cartCount = 0;
-    this.routi.navigate(['/status']);
+    this.router.navigate(['/status']);
   }
 
   fazerPedido(){
-    // Enviar pedido para o backend
-    this.showSuccessModal = true;
+    this.orderService.createOrder(this.order!).subscribe(() => {
+      this.showSuccessModal = true;
+    })
   }
 }
