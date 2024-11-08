@@ -8,9 +8,9 @@
         [class.added]="isInCart(item)"
         (click)="toggleCart(item)"
       >
-        <img [src]="item.image" [alt]="item.name" class="item-image">
         <div class="item-info">
           <h3>{{ item.name }}</h3>
+          <p>{{ item.description }}</p>
           <p class="price">R$ {{ item.price.toFixed(2) }}</p>
         </div>
       </div>
@@ -23,13 +23,12 @@
       (click)="fazerPedido()"
       [disabled]="cartCount === 0"
     >
-      Realizar Pedido
+      Realizar Pedido ({{ order?.totalAmount?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }})
       <span class="cart-count" *ngIf="cartCount > 0">{{ cartCount }}</span>
     </button>
   </div>
 </div>
 
-<!-- Modal de Sucesso -->
 <div class="modal" [class.show]="showSuccessModal">
   <div class="modal-content">
     <span class="close" (click)="closeModal()">&times;</span>
