@@ -1,25 +1,68 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { OrderCardComponent } from '../order-card/order-card.component'
+import { OrderService, OrderWithId, OrderStatus } from '../../services/order.service';
 
-
-interface Pedido {
-  id: string;
-  customer: string;
-  details: string;
-}
+export const statusOrdersLabels: { [key: string]: OrderStatus[] } = {
+  'Cozinha': ['aprovacao'],
+  'Motoboy': ['enviado'],
+  'Chefe': ['preparando', 'cancelado', 'entregue'],
+};
 
 @Component({
   selector: 'app-pedidos',
-  standalone: true,
   templateUrl: './pedidos.component.html',
   styleUrls: ['./pedidos.component.css'],
-  imports: [CommonModule]
+  standalone: true,
+  imports: [CommonModule, OrderCardComponent]
 })
-export class PedidosComponent {
-  pedidos: Pedido[] = [
-    { id: '#24227', customer: 'C05', details: 'Ver detalles' },
-    { id: '#24228', customer: 'C06', details: 'Ver detalles' },
-    { id: '#24229', customer: 'C07hv', details: 'Ver detalles' }
-  ];
+export class PedidosComponent implements OnInit{
+  orderStatuses: OrderStatus[] = [];
+  orders: OrderWithId[] = [];
+  userId: number | null = null
+
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private orderService: OrderService
+  ) {}
+
+  ngOnInit() {
+    this.route.paramMap.subscribe(params => {
+      const userId = params.get('userId');
+      const statusLabel = params.get('status');
+      const statuses = this.getOrderStatusesFromLabel(statusLabel);
+
+      if (!statuses && !userId) {
+        this.router.navigate(['/cadastro']);
+      }
+
+      if (statuses) this.orderStatuses = statuses;
+      if (userId) this.userId = parseInt(userId);
+
+      this.loadOrders();
+    })
+  }
+
+  private getOrderStatusesFromLabel(label: string | null): OrderStatus[] | undefined {
+    return statusOrdersLabels[label || ''];
+  }
+
+  loadOrders () {
+    if (this.userId) {
+      this.orderService.getOrdersByUserId(this.userId).subscribe(orders => {
+        this.orders = orders;
+      });
+      return
+    }
+
+    if (this.orderStatuses.length) {
+      this.orderService.getOrdersByStatus(this.orderStatuses).subscribe(orders => {
+        console.log(orders)
+        this.orders = orders;
+      });
+      return
+    }
+  }
 }

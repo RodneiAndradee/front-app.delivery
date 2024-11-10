@@ -1,0 +1,46 @@
+<div class="order-card">
+  <div class="order-info">
+    <div class="customer-info">
+      <span class="label">Cliente:</span>
+      <span class="value">{{order.user.name}}</span>
+    </div>
+    <div class="order-number">
+      <span class="label">Comanda:</span>
+      <span class="value">{{order.id}}</span>
+    </div>
+    <div class="order-status" [ngClass]="{
+      'status-aprovacao': order.status === 'aprovacao',
+      'status-preparando': order.status === 'preparando',
+      'status-caminho': order.status === 'enviado',
+      'status-entregue': order.status === 'entregue',
+      'status-cancelado': order.status === 'cancelado'
+    }">
+      <span class="label">Status do pedido:</span>
+      <span class="value">{{order.status}}</span>
+    </div>
+
+    <div class="order-dishes" *ngIf="order.dishes.length">
+      <hr>
+      <ul>
+        <li *ngFor="let dish of order.dishes" class="dish-item">
+          <div class="dish-name">{{dish.name}}</div>
+          <div class="dish-price">R$ {{dish.price?.toFixed(2)}}</div>
+          <div class="dish-description">{{dish.description}}</div>
+        </li>
+      </ul>
+    </div>
+
+    <hr *ngIf="['aprovacao', 'enviado', 'preparando'].includes(order.status)">
+
+    <div *ngIf="order.status === 'aprovacao' && !userId" class="order-actions">
+      <button class="btn btn-approve" (click)="updateOrderStatus(order.id, 'preparando')">Aprovar</button>
+      <button class="btn btn-deny" (click)="updateOrderStatus(order.id, 'cancelado')">Negar</button>
+    </div>
+    <div *ngIf="order.status === 'enviado' && !userId" class="order-actions">
+      <button class="btn btn-confirm" (click)="updateOrderStatus(order.id, 'entregue')">Confirmar Entrega</button>
+    </div>
+    <div *ngIf="order.status === 'preparando' && !userId" class="order-actions">
+      <button class="btn btn-send" (click)="updateOrderStatus(order.id, 'enviado')">Enviar para entrega</button>
+    </div>
+  </div>
+</div>
