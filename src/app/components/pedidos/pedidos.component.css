@@ -1,104 +1,26 @@
 .container {
-  padding: 24px;
-  background-color: #f3f4f6;
+  padding: 20px;
+  background-color: #f5f5f5;
   min-height: 100vh;
+  font-family: Arial, sans-serif;
 }
 
 .header {
-  margin-bottom: 24px;
-  max-width: 42rem;
-  margin-left: auto;
-  margin-right: auto;
+  margin-bottom: 30px;
 }
 
 .title {
-  display: inline-block;
-  font-size: 2rem;
+  font-size: 28px;
   font-weight: bold;
+  color: #333;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e0e0e0;
 }
 
 .orders-list {
-  max-width: 42rem;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.order-card {
-  background-color: black;
-  color: white;
-  padding: 16px;
-  border-radius: 15px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-}
-
-.order-info {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-}
-
-.order-id {
-  font-size: 1.125rem;
-  font-weight: 500;
-}
-
-.order-customer {
-  color: #d1d5db;
-}
-
-.order-details {
-  background: none;
-  border: none;
-  color: #d1d5db;
-  text-decoration: underline;
-  font-size: 0.875rem;
-  padding: 0;
-  cursor: pointer;
-  text-align: left;
-}
-
-.order-actions {
-  display: flex;
-  gap: 12px;
-}
-
-.action-button {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-.action-button svg {
-  width: 20px;
-  height: 20px;
-  fill: none;
-  stroke: white;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.approve {
-  background-color: #22c55e;
-}
-
-.reject {
-  background-color: #ef4444;
-}
-
-/* Optional hover effects */
-.action-button:hover {
-  opacity: 0.9;
-}
-
-.order-details:hover {
-  color: white;
+  gap: 20px;
+  max-width: 600px;
+  margin: 0 auto;
 }

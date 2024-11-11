@@ -1,0 +1,169 @@
+.order-card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.order-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.order-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.customer-info,
+.order-number,
+.order-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.order-status {
+  border-bottom: none;
+}
+
+.label {
+  font-weight: 500;
+  color: #666;
+  font-size: 16px;
+}
+
+.value {
+  font-weight: bold;
+  font-size: 16px;
+  color: #333;
+}
+
+/* Status specific styles */
+.status-preparando .value {
+  color: #f59e0b;
+  background-color: #fff7ed;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid #fed7aa;
+}
+
+.status-caminho .value {
+  color: #3b82f6;
+  background-color: #eff6ff;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid #bfdbfe;
+}
+
+.status-entregue .value {
+  color: #34f105;
+  background-color: #e6fade;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid #a0f180;
+}
+
+.status-aprovacao .value {
+  color: #26a69a;
+  background-color: #e0f7fa;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid #26a69a;
+}
+
+.status-cancelado .value {
+  color: #f44336;
+  background-color: #ffebee;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid #f44336;
+}
+
+.order-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+.btn-approve {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.btn-deny {
+  background-color: #f44336;
+  color: white;
+}
+
+.btn-confirm {
+  background-color: #008CBA;
+  color: white;
+}
+
+.btn-send {
+  background-color: #ff9800;
+  color: white;
+}
+
+.btn:hover {
+  opacity: 0.8;
+}
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 0;
+  padding: 0;
+}
+
+.order-dishes h3 {
+  font-size: 18px;
+  color: #333;
+}
+
+.order-dishes ul {
+  list-style: none;
+  padding: 0;
+}
+
+.dish-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.dish-item:last-child {
+  border-bottom: none;
+}
+
+.dish-name {
+  font-weight: bold;
+  color: #333;
+}
+
+.dish-price {
+  color: #4CAF50;
+}
+
+.dish-description {
+  color: #666;
+  font-size: 14px;
+}

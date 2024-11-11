@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Route } from '@angular/router';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Dish, DishService } from '../../services/dish.service';
 import { Order, OrderService } from '../../services/order.service';
 
@@ -34,7 +33,7 @@ export class HomeComponent implements OnInit{
       this.order = {
         user: { id: parseInt(this.userId) },
         dishes: [],
-        status: 'pending',
+        status: 'aprovacao',
         totalAmount: 0
       }
     });
@@ -54,7 +53,7 @@ export class HomeComponent implements OnInit{
     const dishIndex = this.order.dishes.findIndex(dish => dish.id === item.id)
     if (dishIndex !== -1)  {
       this.order?.dishes.splice(dishIndex, 1)
-      this.order.totalAmount = Math.max(0, this.order.totalAmount - item.price)
+      this.order.totalAmount = parseFloat(Math.max(0, this.order.totalAmount - item.price).toFixed(2));
       this.cartCount--
       return
     }
@@ -69,11 +68,16 @@ export class HomeComponent implements OnInit{
     return this.order.dishes.some(dish => dish.id === item.id)
   }
 
-  closeModal() {
+  closeModal(sendToOrdersView: boolean = false) {
     this.showSuccessModal = false;
-    this.order = null;
+    this.order = {
+      user: { id: parseInt(this.userId) },
+      dishes: [],
+      status: 'aprovacao',
+      totalAmount: 0
+    }
     this.cartCount = 0;
-    this.router.navigate(['/status']);
+    if (sendToOrdersView) this.router.navigate(['/pedidos', 'Cliente', this.userId]);
   }
 
   fazerPedido(){

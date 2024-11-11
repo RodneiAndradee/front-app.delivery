@@ -5,7 +5,6 @@ import { DishFormComponent } from './components/dish-form/dish-form.component';
 import { CadastroComponent } from './components/tela-de-cadastro/tela-de-cadastro.component';
 import { HomeComponent } from './components/home/home.component';
 import { PedidosComponent } from './components/pedidos/pedidos.component';
-import { StatusComponent} from './components/status/status.component';
 
 export const routes: Routes = [
   { path: '', component: DishListComponent },
@@ -13,6 +12,6 @@ export const routes: Routes = [
   { path: 'edit-dish/:id', component: DishFormComponent },
   { path: 'cadastro', component: CadastroComponent },
   { path: 'home/:id', component: HomeComponent },
-  { path: 'pedidos', component: PedidosComponent },
-  { path: 'status', component: StatusComponent },
+  { path: 'pedidos/:status', component: PedidosComponent },
+  { path: 'pedidos/:status/:userId', component: PedidosComponent }
 ];
