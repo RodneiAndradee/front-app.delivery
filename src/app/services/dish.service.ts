@@ -3,6 +3,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../environments/environment';
+
 
 export interface Dish {
   id?: number;
@@ -15,7 +17,7 @@ export interface Dish {
   providedIn: 'root'
 })
 export class DishService {
-  private apiUrl = 'http://localhost:8080/dishes';
+  private apiUrl = `${environment.apiUrl}/dishes`;
 
   constructor(private http: HttpClient) {}
 
